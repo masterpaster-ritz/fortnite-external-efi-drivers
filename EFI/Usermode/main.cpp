@@ -174,7 +174,7 @@ Vector3 Camera(unsigned __int64 RootComponent)
 void actorLoop() {
 	std::vector<ActorStruct> actorStructVector;
 
-	uintptr_t uWorld = Driver::read<uintptr_t>(pid, BaseAddr + 0x9864730); //update
+	uintptr_t uWorld = Driver::read<uintptr_t>(pid, BaseAddr + 0x9eb0360); //update
 	if (!uWorld) {
 		return;
 	}
@@ -262,7 +262,7 @@ void actorLoop() {
 				continue;
 			}
 			uint64_t playerstate = Driver::read<uint64_t>(pid, ActorStruct.pObjPointer + 0x240);
-			int TeamIndex = Driver::read<int>(pid, playerstate + 0xED8);
+			int TeamIndex = Driver::read<int>(pid, playerstate + 0xF28);
 		}
 	}
 
@@ -287,9 +287,9 @@ void actorLoop() {
 		}
 
 		uint64_t playerstate = Driver::read<uint64_t>(pid, ActorStruct.pObjPointer + 0x240);
-		int TeamIndex = Driver::read<int>(pid, playerstate + 0xED0);
+		int TeamIndex = Driver::read<int>(pid, playerstate + 0xF28);
 
-		Vector3 vHeadBone = GetBoneWithRotation(ActorStruct.Mesh, 66);
+		Vector3 vHeadBone = GetBoneWithRotation(ActorStruct.Mesh, 98);
 		Vector3 vRootBone = GetBoneWithRotation(ActorStruct.Mesh, 0);
 
 		Vector3 vHeadBoneOut = ProjectWorldToScreen(Vector3(vHeadBone.x, vHeadBone.y, vHeadBone.z + 20), Vector3(Localcam.y, Localcam.x, Localcam.z));
