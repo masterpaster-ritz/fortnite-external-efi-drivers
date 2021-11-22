@@ -11,3 +11,5 @@ if u cant figure it out then dont paste this u skid
 
 if it says //updated then that means i updated the outdated offset 
 im saying that bc skids gonna flood my dms thinking that its the only updated offsets
+
+updated to 18.40 - 11/22/2021
