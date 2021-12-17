@@ -174,7 +174,7 @@ Vector3 Camera(unsigned __int64 RootComponent)
 void actorLoop() {
 	std::vector<ActorStruct> actorStructVector;
 
-	uintptr_t uWorld = Driver::read<uintptr_t>(pid, BaseAddr + 0x9eb0360); //update
+	uintptr_t uWorld = Driver::read<uintptr_t>(pid, BaseAddr + 0xB78BC30); //update
 	if (!uWorld) {
 		return;
 	}
@@ -184,7 +184,7 @@ void actorLoop() {
 		return;
 	}
 
-	uintptr_t OwningGameInstance = Driver::read<uintptr_t>(pid, uWorld + 0x188); //updated
+	uintptr_t OwningGameInstance = Driver::read<uintptr_t>(pid, uWorld + 0x190); //updated
 	if (!OwningGameInstance) {
 		return;
 	}
@@ -203,14 +203,15 @@ void actorLoop() {
 	if (!LocalPlayerController) {
 		return;
 	}
-
-	Settings::Majors::LocalPawn = Driver::read<uintptr_t>(pid, LocalPlayerController + 0x2A0);
+	
+	Settings::Majors::LocalPawn = Driver::read<uintptr_t>(pid, LocalPlayerController + 0x2A8);
 	if (!Settings::Majors::LocalPawn) {
 		return;
 	}
 	else {
 		Settings::Majors::LocalPawnRootComponent = Driver::read<uintptr_t>(pid, Settings::Majors::LocalPawn + 0x130);
-		Settings::Majors::LocalPlayerRelativeLocation = Driver::read<Vector3>(pid, Settings::Majors::LocalPawnRootComponent + 0x11C);
+		
+		
 
 		Settings::Majors::LocalPlayerID = Driver::read<int>(pid, Settings::Majors::LocalPawn + 0x18);
 	}
@@ -225,7 +226,7 @@ void actorLoop() {
 		if (!PersistentLevelActors) {
 			return;
 		}
-
+		
 		uintptr_t CurrentActor = Driver::read<uintptr_t>(pid, PersistentLevelActors + (index * sizeof(uintptr_t)));
 		if (!CurrentActor) {
 			continue;
@@ -274,7 +275,7 @@ void actorLoop() {
 	float ClosestActorDistance = FLT_MAX;
 	Vector3 ClosestActorMouseAimbotPosition = Vector3(0.0f, 0.0f, 0.0f);
 	float distance;
-
+	localactorpos = read<Vector3>(Rootcomp + 0x11C);
 	for (const ActorStruct& ActorStruct : actorStructVector)
 	{
 		if (ActorStruct.pObjPointer == Settings::Majors::LocalPawn) {
@@ -315,7 +316,7 @@ void actorLoop() {
 			continue;
 		}
 
-		distance = Settings::Majors::LocalPlayerRelativeLocation.Distance(RelativeInternalLocation) / 100.f;
+		distance = localactorpos.Distance(bone66) / 100.f;
 
 		if (TeamIndex != LocalTeam) {
 
